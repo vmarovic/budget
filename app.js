@@ -5,6 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Database is set as global object
+GLOBAL.db = require('./models');
+
+// Lodash is set as global object
+GLOBAL._ = require('lodash');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -39,11 +45,9 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    console.log(err);
     res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+    return res.send(err.message);
   });
 }
 

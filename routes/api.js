@@ -6,4 +6,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express api' });
 });
 
+router.use('/account', require('./account'));
+
 module.exports = router;
